@@ -1,0 +1,15 @@
+.centered-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Adjust based on your needs */
+  margin: 0;
+}
+
+.content-container {
+  width: 80%; /* Adjust based on your needs */
+  max-width: 600px; /* Adjust based on your needs */
+  padding: 20px;
+  background-color: #fff; /* Optional: Adds a background color */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Adds a shadow */
+}
