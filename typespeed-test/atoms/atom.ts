@@ -7,5 +7,5 @@ export const wordsPerMinuteState = atom({
 
 export const timerStartState = atom({
   key: "timerStartValue",
-  default: false,
+  default: true,
 });

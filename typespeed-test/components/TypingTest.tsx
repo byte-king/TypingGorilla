@@ -1,23 +1,35 @@
-import React, { useRef, useState, ChangeEvent } from "react";
+"use client";
+import React, { useRef, useState, ChangeEvent, useEffect } from "react";
 import { Card, CardBody, Input } from "@nextui-org/react";
 import Timer from "./TimerClass/timer";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { timerStartState } from "@/atoms/atom";
 const TypingTest = () => {
   const [inputValue, setInputValue] = useState("");
-  const [correctText, setCorrectText] = useState(
-    "The sun dipped below the horizon, casting a warm, golden glow over the tranquil lake. Birds chirped melodiously, their songs echoing through the crisp evening air. A gentle breeze rustled the leaves of the ancient oak trees, creating a soothing symphony of nature. As the stars began to twinkle in the darkening sky, the world seemed to pause, basking in the serene beauty of the moment. It was a perfect reminder of the simple joys that life has to offer."
-  ); // Replace with your test text
-
+  const correctText =
+    "The sun dipped below the horizon, casting a warm, golden glow over the tranquil lake. Birds chirped melodiously, their songs echoing through the crisp evening air. A gentle breeze rustled the leaves of the ancient oak trees, creating a soothing symphony of nature. As the stars began to twinkle in the darkening sky, the world seemed to pause, basking in the serene beauty of the moment. It was a perfect reminder of the simple joys that life has to offer."; // Replace with your test text
   const [correctWordsCount, setCorrectWordsCount] = useState(0);
+  const [totalWordsTyped, setTotalWordsTyped] = useState(0);
+  const timerStart = useRecoilValue(timerStartState);
 
-  // When user clicks the start test, start a timer of 60s .
-  // This should be displayed to the user
-  // For now, auto submit when the timer reaches 0.
-  // and then show the user the results
-  //
+  // Calculate accuracy and WPM
+  const accuracy = (correctWordsCount / totalWordsTyped) * 100;
+  const wpm = correctWordsCount;
 
-  const [timerStart, setTimerStart] = useRecoilState(timerStartState);
+  useEffect(() => {
+    // Example effect to simulate word comparison and update correctWordsCount
+    // This is a placeholder. You'll need to replace it with your actual logic.
+    const words = inputValue.split(/\s+/);
+    const correctWords = words.filter(
+      (word, index) => word === correctText.split(" ")[index]
+    );
+    setCorrectWordsCount(correctWords.length);
+    setTotalWordsTyped(words.length);
+  }, [inputValue, correctText]);
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
+  };
 
   return (
     <div
@@ -28,7 +40,21 @@ const TypingTest = () => {
         alignItems: "center",
         justifyContent: "space-evenly",
       }}>
-      <Timer timerStart={true} />
+      <Timer />
+      {!timerStart && (
+        <Card>
+          <CardBody>
+            <Input
+              isReadOnly
+              value={`accuracy : ${accuracy}%`}
+            />
+            <Input
+              isReadOnly
+              value={`wpm : ${wpm} `}
+            />
+          </CardBody>
+        </Card>
+      )}
       <Card>
         <CardBody>
           <p>{correctText}</p>
@@ -36,7 +62,10 @@ const TypingTest = () => {
       </Card>
       <Card>
         <CardBody>
-          <Input isReadOnly={!timerStart} />
+          <Input
+            isReadOnly={!timerStart}
+            onChange={handleInputChange}
+          />
         </CardBody>
       </Card>
     </div>
