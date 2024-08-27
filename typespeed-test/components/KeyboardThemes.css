@@ -1,0 +1,26 @@
+/* keyboardThemes.css */
+
+.light-theme .simple-keyboard {
+  background-color: white;
+  color: black;
+}
+
+.light-theme .simple-keyboard .hg-button {
+  background-color: #f0f0f0;
+  color: black;
+}
+
+.dark-theme .simple-keyboard {
+  background-color: #2e2e2e;
+  color: white;
+}
+
+.dark-theme .simple-keyboard .hg-button {
+  background-color: #444;
+  color: white;
+}
+
+.hg-button.hg-active {
+  background-color: #888; /* Darker background color for active state */
+  transition: background-color 0.2s;
+}

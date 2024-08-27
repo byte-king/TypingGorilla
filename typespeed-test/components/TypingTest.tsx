@@ -4,6 +4,7 @@ import { Card, CardBody, Input } from "@nextui-org/react";
 import Timer from "./TimerClass/timer";
 import { useRecoilValue } from "recoil";
 import { timerStartState } from "@/atoms/atom";
+import VirtualKeyboard from "./VirtualKeyboard";
 const TypingTest = () => {
   const [inputValue, setInputValue] = useState("");
   const correctText =
@@ -68,6 +69,7 @@ const TypingTest = () => {
           />
         </CardBody>
       </Card>
+      <VirtualKeyboard />
     </div>
   );
 };
